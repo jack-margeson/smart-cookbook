@@ -40,4 +40,10 @@ A final draft sketch was produced iterating off of the sketches performed in the
 ![Final draft sketch](https://github.com/jack-margeson/smart-cookbook/blob/main/public/assets/sketches/f_sketch.jpg?raw=true)
 
 When presented to peers, the following feedback was recieved:
-
+- If design includes notepad, make it digital
+- Remove notepad section and extend scale for weighing larger objects
+- Scale part should be detachable for cleaning
+- "What is the circle in the middle of the text"?
+  - Redesign for integrated weight check meter possible
+- Consider replacing bottom tray icons with other icons (x for door)
+- Add controls for built-in scale (zeroing, unit changing)
