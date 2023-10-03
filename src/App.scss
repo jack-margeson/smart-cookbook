@@ -1,0 +1,114 @@
+.container {
+    // Sizing and styling
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    font-size: 18px;
+    // Flexbox information
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.project-information {
+    // Sizing and styling
+    padding-left: 20px;
+    background-color: grey;
+    // Flexbox information
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.mock-ui-container {
+    // Sizing and styling
+    width: 100%;
+    background-color: lightgrey;
+    // Flexbox information
+    display: flex;
+    flex-grow: 6;
+}
+
+.mock-ui-controls {
+    // Sizing and styling
+    margin: 20px;
+    padding: 10px;
+    background-color: lightskyblue;
+    // Flexbox information
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.mock-ui-controls > * {
+    // Sizing and styling
+    margin-bottom: 10px;
+}
+
+.mock-ui-screen {
+    // Sizing and styling
+    margin: 20px;
+    background-color: darkslateblue;
+    max-width: 75%;
+    // Flexbox information
+    display: flex;
+    flex-grow: 4;
+}
+
+.mock-ui-video {
+    // Sizing and styling
+    margin: 20px;
+    background-color: #271888;
+    color: white;
+    // Flexbox information
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.mock-ui-instructions {
+    // Sizing and styling
+    margin: 20px;
+    padding: 20px;
+    margin-left: 0px;
+    max-width: 60%;
+    background-color: #271888;
+    color: white;
+    // Flexbox information
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    flex-grow: 3;
+}
+
+.mock-ui-instructions-header {
+    // Sizing and styling
+    // Flexbox information
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.mock-ui-instructions-header > .title {
+    // Sizing and styling
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.mock-ui-instructions-body {
+    // Sizing and styling
+    margin-top: 20px;
+    // Flexbox information
+    display: flex;
+    flex-direction: column;
+    flex-grow: 10;
+}
+
+.mock-ui-instructions-body > p {
+    // Sizing and styling
+    max-width: 100%;
+    word-break: break-word;
+    // Flexbox information
+}
