@@ -16,7 +16,8 @@ class App extends React.Component {
     constructor(props) {
         super();
         this.state = {
-            selectedRecipe: recipes[0]
+            selectedRecipe: recipes[0],
+            scaleValue: 0
         }
     }
 
@@ -28,11 +29,28 @@ class App extends React.Component {
         }
     }
 
+    handleScaleChange = (event) => {
+        let value = event.target.value
+
+        if (value <= 0) {
+            this.setState({ scaleValue: 0 });
+          } else if (value <= 25) {
+            this.setState({ scaleValue: 1 });
+          } else if (value <= 50) {
+            this.setState({ scaleValue: 2 });
+          } else if (value <= 75) {
+            this.setState({ scaleValue: 3 });
+          } else if (value <= 100) {
+            this.setState({ scaleValue: 4 });
+          }
+    }
+
     render() {
         return (
             <div className="container">
                 <div className="scale-container">
-                    <img src="https://avatars.githubusercontent.com/u/31900546?s=48&v=4"
+                    <img 
+                    src={window.location.origin + '/assets/scale/scale' + this.state.scaleValue + '.png'}
                     width={"340px"}
                     height={"300px"}></img>
                 </div>
@@ -59,6 +77,7 @@ class App extends React.Component {
                             max="100"
                             defaultValue="0"
                             id="weightRange"
+                            onChange={this.handleScaleChange}
                         ></input>
                     </div>
                     <div className="mock-ui-screen">
