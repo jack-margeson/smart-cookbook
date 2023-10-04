@@ -51,6 +51,7 @@ class App extends React.Component {
                 <div className="scale-container">
                     <img 
                     src={window.location.origin + '/assets/scale/scale' + this.state.scaleValue + '.png'}
+                    alt="Mock Scale"
                     width={"340px"}
                     height={"300px"}></img>
                 </div>
