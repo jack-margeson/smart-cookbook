@@ -112,3 +112,16 @@
     word-break: break-word;
     // Flexbox information
 }
+
+.scale-container {
+    width: 100%;
+    height: 100%;
+    // Display information 
+    position: absolute;
+    display: float;
+    overflow: hidden;
+}
+
+.scale-container > img {
+    margin-top: calc(100vh - 300px);
+}
