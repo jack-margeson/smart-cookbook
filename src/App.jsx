@@ -2,6 +2,13 @@ import "./App.scss";
 import React from 'react';
 import Select from "react-select";
 
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import PersonIcon from '@mui/icons-material/Person';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import CloseIcon from '@mui/icons-material/Close';
+import { IconButton, Tooltip } from "@mui/material";
+
  // Import recipes.json
  const recipes = require("./recipes.json");
  console.log(recipes);
@@ -43,6 +50,10 @@ class App extends React.Component {
           } else if (value <= 100) {
             this.setState({ scaleValue: 4 });
           }
+    }
+
+    closeRecipe = (event) => {
+        alert("test");
     }
 
     render() {
@@ -94,14 +105,42 @@ class App extends React.Component {
                             ></iframe>
                         </div>
                         <div className="mock-ui-instructions">
-                            <div className="mock-ui-instructions-header">
+                            <div className="mock-ui-text">                            
+                                <div className="mock-ui-instructions-header">
                                 <p className="title">
-                                    {this.state.selectedRecipe.display_name}
-                                </p>
-                                <p>Instruction #1</p>
+                                        {this.state.selectedRecipe.display_name}
+                                    </p>
+                                    <p>Instruction #1</p>
+                                </div>
+                                <div className="mock-ui-instructions-body">
+                                    <p>{this.state.selectedRecipe.steps[0].body_text}</p>
+                                </div>
+                                <div className="mock-ui-instructions-nav">
+                                    <Tooltip title="Close recipe">
+                                        <IconButton size="large" onClick={this.closeRecipe}>
+                                            <CloseIcon fontSize="large" sx={{ color: "#fff" }}></CloseIcon>
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Chef profile">
+                                        <IconButton size="large" onClick={this.closeRecipe}>
+                                            <PersonIcon fontSize="large" sx={{ color: "#fff" }}></PersonIcon>
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Edit recipe notes">
+                                        <IconButton size="large" onClick={this.closeRecipe}>
+                                            <EditNoteIcon fontSize="large" sx={{ color: "#fff" }}></EditNoteIcon>
+                                        </IconButton>
+                                    </Tooltip>
+                                </div>
                             </div>
-                            <div className="mock-ui-instructions-body">
-                                <p>{this.state.selectedRecipe.steps[0].body_text}</p>
+                            <div className="mock-ui-control-container">
+                                <div className="mock-ui-control" style={{borderBottom: "2px solid #FFFFFF"}}>
+                                    <NavigateNextIcon fontSize="large"></NavigateNextIcon>
+                                </div>
+                                <div className="mock-ui-control" style={{borderTop: "2px solid #FFFFFF"}}>
+                                    <NavigateBeforeIcon fontSize="large"></NavigateBeforeIcon>
+                                </div>
+
                             </div>
                         </div>
                     </div>
