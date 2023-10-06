@@ -12,7 +12,8 @@
 .project-information {
     // Sizing and styling
     padding-left: 20px;
-    background-color: grey;
+    background-color: #364652;
+    color: white;
     // Flexbox information
     display: flex;
     flex-direction: column;
@@ -24,7 +25,7 @@
 .mock-ui-container {
     // Sizing and styling
     width: 100%;
-    background-color: lightgrey;
+    background-color: #E2E6D2;
     // Flexbox information
     display: flex;
     flex-grow: 6;
@@ -34,7 +35,6 @@
     // Sizing and styling
     margin: 20px;
     padding: 10px;
-    background-color: lightskyblue;
     // Flexbox information
     display: flex;
     flex-direction: column;
@@ -48,7 +48,7 @@
 .mock-ui-screen {
     // Sizing and styling
     margin: 20px;
-    background-color: darkslateblue;
+    background-color: #363636;
     max-width: 75%;
     // Flexbox information
     display: flex;
@@ -58,7 +58,7 @@
 .mock-ui-video {
     // Sizing and styling
     margin: 20px;
-    background-color: #271888;
+    background-color: #000;
     color: white;
     // Flexbox information
     display: flex;
@@ -74,8 +74,9 @@
     padding: 20px;
     margin-left: 0px;
     max-width: 60%;
-    background-color: #271888;
-    color: white;
+    background-color: #BCC1BE;
+    color: black;
+    border-radius: 15px;
     // Flexbox information
     display: flex;
     flex-direction: row;
@@ -92,10 +93,11 @@
 }
 
 .mock-ui-control-container {
-    background-color: #7e74bd;
+    background-color: #EB7256;
     height: 100%;
     min-width: 6%;
     user-select: none;
+    border-radius: 10px;
     // Flexbox information 
     display: flex;
     flex-direction: column;
@@ -147,11 +149,34 @@
     max-width: 100%;
     word-break: break-word;
     // Flexbox information
+    flex-grow: 7;
+}
+
+.mock-ui-instructions-scale {
+    min-width: 100%;
+    display: flex;
+    flex-grow: 2;
+    align-items: center;
+    justify-items: center;
+    padding-bottom: 20px;
+}
+
+.weight-display {
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(90deg, #FF6961,#FDFD96,#C5FFB1);
+    border: 2px solid #363636;
+    cursor: pointer;
+    width: 15rem;
+    border-radius: 5px;
+    min-width: 80%;
+    margin-left: 10px;
 }
 
 .mock-ui-instructions-nav {
     // Sizing and styling
     margin-top: 0px;
+    color: black;
     // Flexbox information
     display: flex;
     flex-direction: row;

@@ -11,6 +11,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import CloseIcon from '@mui/icons-material/Close';
 import WarningIcon from '@mui/icons-material/Warning';
+import ScaleIcon from '@mui/icons-material/Scale';
 import { Button, IconButton, Modal, Tooltip } from "@mui/material";
 
 
@@ -29,10 +30,12 @@ class App extends React.Component {
         this.state = {
             selectedRecipe: recipes[0],
             scaleValue: 0,
+            scaleTrueValue: 0,
             profileModalOpen: false,
             notesModalOpen: false,
             currentInstructionPos: 0,
-            currentInstruction: ""
+            currentInstruction: "",
+            currentInstructionScale: 0
         }
     }
 
@@ -43,7 +46,8 @@ class App extends React.Component {
                 this.setState({ [key]: value });
             }
         }
-        this.setState({currentInstruction: this.state.selectedRecipe.steps[0].body_text}); 
+        this.setState({currentInstruction: this.state.selectedRecipe.steps[0].body_text});
+        this.setState({currentInstructionScale: this.state.selectedRecipe.steps[0].measurements}); 
     }
 
     handleChange = (selectedOption) => {
@@ -53,7 +57,8 @@ class App extends React.Component {
             this.setState({ selectedRecipe: recipe });
         }
         this.setState({currentInstructionPos: 0});
-        this.setState({currentInstruction: this.state.selectedRecipe.steps[0].body_text}); 
+        this.setState({currentInstruction: this.state.selectedRecipe.steps[0].body_text});
+        this.setState({currentInstructionScale: this.state.selectedRecipe.steps[0].measurements}); 
     }
 
     handleScaleChange = (event) => {
@@ -70,6 +75,8 @@ class App extends React.Component {
         } else if (value <= 100) {
             this.setState({ scaleValue: 4 });
         }
+
+        this.setState({scaleTrueValue: value});
     }
 
     closeRecipe = (event) => {
@@ -125,6 +132,7 @@ class App extends React.Component {
     updateInstructionText(num) {
         console.log(this.state.currentInstructionPos);
         this.setState({currentInstruction: this.state.selectedRecipe.steps[num].body_text}); 
+        this.setState({currentInstructionScale: this.state.selectedRecipe.steps[num].measurements}); 
     }
 
 
@@ -255,31 +263,44 @@ class App extends React.Component {
                                 </div>
                                 <div className="mock-ui-instructions-body">
                                     <p>{this.state.currentInstruction}</p>
+                                    <div className="mock-ui-instructions-scale">
+                                        <ScaleIcon size="large"></ScaleIcon>
+                                        <span style={{paddingLeft: '10px'}}>{this.state.currentInstructionScale}g</span>
+                                        <input
+                                            className="weight-display"
+                                            type="range"
+                                            min="0"
+                                            max={this.state.currentInstructionScale}
+                                            defaultValue="0"
+                                            id="weightDisplay"
+                                            value={this.state.scaleTrueValue}
+                                        ></input>
+                                    </div>
                                 </div>
                                 <div className="mock-ui-instructions-nav">
                                     <Tooltip title="Close recipe">
                                         <IconButton size="large" onClick={this.closeRecipe}>
-                                            <CloseIcon fontSize="large" sx={{ color: "#fff" }}></CloseIcon>
+                                            <CloseIcon fontSize="large" sx={{ color: "#000" }}></CloseIcon>
                                         </IconButton>
                                     </Tooltip>
                                     <Tooltip title="Chef profile">
                                         <IconButton size="large" onClick={this.openProfileModal}>
-                                            <PersonIcon fontSize="large" sx={{ color: "#fff" }}></PersonIcon>
+                                            <PersonIcon fontSize="large" sx={{ color: "#EB7256" }}></PersonIcon>
                                         </IconButton>
                                     </Tooltip>
                                     <Tooltip title="Edit recipe notes">
                                         <IconButton size="large" onClick={this.openNotesModal}>
-                                            <EditNoteIcon fontSize="large" sx={{ color: "#fff" }}></EditNoteIcon>
+                                            <EditNoteIcon fontSize="large" sx={{ color: "#EB7256" }}></EditNoteIcon>
                                         </IconButton>
                                     </Tooltip>
                                     {warning}
                                 </div>
                             </div>
                             <div className="mock-ui-control-container">
-                                <div className="mock-ui-control" style={{ borderBottom: "2px solid #FFFFFF" }} onClick={this.instructionNext}>
+                                <div className="mock-ui-control" style={{ borderBottom: "2px solid #363636" }} onClick={this.instructionNext}>
                                     <NavigateNextIcon fontSize="large"></NavigateNextIcon>
                                 </div>
-                                <div className="mock-ui-control" style={{ borderTop: "2px solid #FFFFFF"}} onClick={this.instructionPrev}>
+                                <div className="mock-ui-control" style={{ borderTop: "2px solid #363636"}} onClick={this.instructionPrev}>
                                     <NavigateBeforeIcon fontSize="large"></NavigateBeforeIcon>
                                 </div>
 
