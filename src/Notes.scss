@@ -1,0 +1,74 @@
+.notes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+}
+
+.notes-header {
+    display: flex;
+    flex-direction: row;
+    min-height: 20%;
+    width: 100%;
+    flex-grow: 1
+}
+
+.notes-header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 5%;
+    flex-grow: 1;
+    padding-right: 30px;
+}
+
+.notes-header-text {
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    flex-grow: 8;
+}
+
+.notes-recipe-title {
+    font-size: 24px;
+    padding-bottom: 5px;
+    flex-grow: 1;
+}
+
+.notes-body {
+    min-height: 80%;
+    min-width: 100%;
+    flex-grow: 100;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.notes-input-container {
+    min-width: 95%;
+    min-height: 95%;
+    flex-grow: 30;
+}
+
+.notes-input {
+    height: 100%;
+    width: 100%;
+    font-size: 18px;
+    text-align: left;
+    resize: none;
+}
+
+.notes-form-actions {
+    min-height: 30%;
+    min-width: 100%;
+    flex-grow: 2;
+    font-size: 18px;
+    display: flex;
+    justify-content: right;
+    align-content: center;
+}
+
+.notes-form-actions-button {
+    padding-right: 20px;
+}

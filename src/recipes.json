@@ -11,7 +11,9 @@
                 "body_text": "Bacon ipsum dolor amet cupim burgdoggen %m1 strip steak turkey cow ham bacon pastrami meatball tail shank capicola sirloin pig pork belly. Capicola shankle chislic short ribs, drumstick leberkas brisket beef ribs shoulder turkey pig t-bone meatball. Pancetta ground round drumstick, biltong salami frankfurter turkey bresaola filet mignon tail pork loin jerky bacon. Leberkas pancetta venison spare ribs jowl shank landjaeger pastrami filet mignon drumstick short loin alcatra kielbasa kevin tenderloin. Chuck burgdoggen pastrami, shank biltong shankle boudin leberkas hamburger drumstick tri-tip ham hock capicola spare ribs kevin. Pork chislic prosciutto, turkey jerky bacon tongue sausage doner alcatra chuck cow short ribs beef ribs. Cupim shoulder short ribs jerky, short loin meatloaf boudin ball tip ham hock tri-tip.",
                 "measurements": "12"
             }
-        ]
+        ],
+        "diet": [],
+        "equipment": ["equipment-stovetop"]
     },
     {
         "name": "tikka_masala",
@@ -25,6 +27,8 @@
                 "body_text": "Bacon ipsum dolor amet cupim burgdoggen %m1 strip steak turkey cow ham bacon pastrami meatball tail shank capicola sirloin pig pork belly. Capicola shankle chislic short ribs, drumstick leberkas brisket beef ribs shoulder turkey pig t-bone meatball. Pancetta ground round drumstick, biltong salami frankfurter turkey bresaola filet mignon tail pork loin jerky bacon. Leberkas pancetta venison spare ribs jowl shank landjaeger pastrami filet mignon drumstick short loin alcatra kielbasa kevin tenderloin. Chuck burgdoggen pastrami, shank biltong shankle boudin leberkas hamburger drumstick tri-tip ham hock capicola spare ribs kevin. Pork chislic prosciutto, turkey jerky bacon tongue sausage doner alcatra chuck cow short ribs beef ribs. Cupim shoulder short ribs jerky, short loin meatloaf boudin ball tip ham hock tri-tip.",
                 "measurements": "12"
             }
-        ]
+        ],
+        "diet": ["diet-lactose"],
+        "equipment": ["equipment-stovetop"]
     }
 ]
