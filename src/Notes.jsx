@@ -47,13 +47,16 @@ class Notes extends React.Component {
 
     saveAndCloseNotes = (event) => {
         const savedNotes = localStorage.getItem('smart-cookbook-notes');
-        if (savedNotes !== null) {
-            let notes = JSON.parse(savedNotes);
-            notes[this.props.currentRecipe.name] = this.state.notes[this.props.currentRecipe.name]
-            localStorage.setItem('smart-cookbook-notes', JSON.stringify(notes));
-        } else {
-            localStorage.setItem('smart-cookbook-notes', JSON.stringify(this.state.notes))
+        if (this.state.notes && this.state.notes[this.props.currentRecipe.name] !== "") {
+            if (savedNotes !== null) {
+                let notes = JSON.parse(savedNotes);
+                notes[this.props.currentRecipe.name] = this.state.notes[this.props.currentRecipe.name]
+                localStorage.setItem('smart-cookbook-notes', JSON.stringify(notes));
+            } else {
+                localStorage.setItem('smart-cookbook-notes', JSON.stringify(this.state.notes))
+            }
         }
+    
         this.props.closeNotesModal();
     }
 
