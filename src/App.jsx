@@ -11,7 +11,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import CloseIcon from '@mui/icons-material/Close';
 import WarningIcon from '@mui/icons-material/Warning';
-import { Button, Icon, IconButton, Modal, Tooltip } from "@mui/material";
+import { Button, IconButton, Modal, Tooltip } from "@mui/material";
 
 
 // Import recipes.json

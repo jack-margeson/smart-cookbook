@@ -2,7 +2,7 @@ import "./Notes.scss"
 import React from "react";
 
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, IconButton, Button } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 
 const modalStyle = {
     position: 'absolute',
