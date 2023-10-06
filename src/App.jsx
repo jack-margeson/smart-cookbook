@@ -31,13 +31,19 @@ class App extends React.Component {
             scaleValue: 0,
             profileModalOpen: false,
             notesModalOpen: false,
+            currentInstructionPos: 0,
+            currentInstruction: ""
         }
+    }
+
+    componentDidMount() {
         const savedProfile = localStorage.getItem('smart-cookbook-profile');
         if (savedProfile !== null) {
             for (const [key, value] of Object.entries(JSON.parse(savedProfile))) {
                 this.setState({ [key]: value });
             }
         }
+        this.setState({currentInstruction: this.state.selectedRecipe.steps[0].body_text}); 
     }
 
     handleChange = (selectedOption) => {
@@ -46,6 +52,8 @@ class App extends React.Component {
             console.log(recipe);
             this.setState({ selectedRecipe: recipe });
         }
+        this.setState({currentInstructionPos: 0});
+        this.setState({currentInstruction: this.state.selectedRecipe.steps[0].body_text}); 
     }
 
     handleScaleChange = (event) => {
@@ -90,18 +98,89 @@ class App extends React.Component {
         this.setState({ notesModalOpen: false });
     }
 
+    instructionNext = (event) => {
+        let tmp = this.state.currentInstructionPos;
+        tmp += 1;
+        if (tmp > this.state.selectedRecipe.steps.length-1) {
+            this.setState({currentInstructionPos: 0});
+            tmp = 0;
+        } else {
+            this.setState({currentInstructionPos: tmp});
+        }
+        this.updateInstructionText(tmp);
+    }
+
+    instructionPrev = (event) => {
+        let tmp = this.state.currentInstructionPos;
+        tmp -= 1;
+        if (tmp < 0) {
+            this.setState({currentInstructionPos: this.state.selectedRecipe.steps.length-1});
+            tmp = this.state.selectedRecipe.steps.length-1;
+        } else {
+            this.setState({currentInstructionPos: tmp});
+        }
+        this.updateInstructionText(tmp);
+    }
+
+    updateInstructionText(num) {
+        console.log(this.state.currentInstructionPos);
+        this.setState({currentInstruction: this.state.selectedRecipe.steps[num].body_text}); 
+    }
+
+
     clearProfileCache = (event) => {
         localStorage.clear('smart-cookbook-profile');
         window.location.reload();
     }
 
     render() {
-        let warnings = ["1", "2"]
+
+        let warnings = []
+        this.state.selectedRecipe.warnings.forEach(
+            (option) => {
+                if (this.state.name) {
+                    switch (option) {
+                        case "diet-lactose":
+                            if (this.state['diet-lactose']) {
+                                warnings.push("Contains lactose");
+                            }
+                            break;
+                        case "diet-gluten":
+                            if (this.state['diet-gluten']) {
+                                warnings.push("Contains gluten");
+                            }
+                            break;
+                        case "diet-vegan":
+                            if (this.state['diet-vegan']) {
+                                warnings.push("Contains animal products");
+                            }
+                            break;
+                        case "equipment-stovetop":
+                            if (!this.state['equipment-stovetop']) {
+                                warnings.push("Requires a stovetop to cook");
+                            }
+                            break;
+                        case "equipment-oven":
+                            if (!this.state['equipment-oven']) {
+                                warnings.push("Requires an oven to cook");
+                            }
+                            break;
+                        case "equipment-microwave":
+                            if (!this.state['equipment-microwave']) {
+                                warnings.push("Requires a microwave to cook");
+                            }
+                            break;
+                        default:
+                            warnings.push("This isn't supposed to happen.")
+                    }
+                }
+            }
+        );
 
         let warningText = (
             <h3 style={{ fontSize: '20px;' }}>
                 {this.state.name ? this.state.name : "Chef"}, this recipe may not meet your dietary restrictions or be possible in your kitchen.
-                The following warnings about this recipe conflict with your chef profile:<br></br>
+                The following warnings about this recipe conflict with your chef profile:<br></br><br></br>
                 {warnings.map(item => <p>- {item}</p>)}
             </h3>
         )
@@ -172,10 +251,10 @@ class App extends React.Component {
                                     <p className="title">
                                         {this.state.selectedRecipe.display_name}
                                     </p>
-                                    <p>Instruction #1</p>
+                                    <p>Instruction #{this.state.currentInstructionPos + 1}</p>
                                 </div>
                                 <div className="mock-ui-instructions-body">
-                                    <p>{this.state.selectedRecipe.steps[0].body_text}</p>
+                                    <p>{this.state.currentInstruction}</p>
                                 </div>
                                 <div className="mock-ui-instructions-nav">
                                     <Tooltip title="Close recipe">
@@ -197,10 +276,10 @@ class App extends React.Component {
                                 </div>
                             </div>
                             <div className="mock-ui-control-container">
-                                <div className="mock-ui-control" style={{ borderBottom: "2px solid #FFFFFF" }}>
+                                <div className="mock-ui-control" style={{ borderBottom: "2px solid #FFFFFF" }} onClick={this.instructionNext}>
                                     <NavigateNextIcon fontSize="large"></NavigateNextIcon>
                                 </div>
-                                <div className="mock-ui-control" style={{ borderTop: "2px solid #FFFFFF" }}>
+                                <div className="mock-ui-control" style={{ borderTop: "2px solid #FFFFFF"}} onClick={this.instructionPrev}>
                                     <NavigateBeforeIcon fontSize="large"></NavigateBeforeIcon>
                                 </div>
 
