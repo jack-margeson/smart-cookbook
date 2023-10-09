@@ -115,6 +115,7 @@ class App extends React.Component {
             this.setState({currentInstructionPos: tmp});
         }
         this.updateInstructionText(tmp);
+        this.setState({scaleValue: 0, scaleTrueValue: 0});
     }
 
     instructionPrev = (event) => {
@@ -127,6 +128,7 @@ class App extends React.Component {
             this.setState({currentInstructionPos: tmp});
         }
         this.updateInstructionText(tmp);
+        this.setState({scaleValue: 0, scaleTrueValue: 0});
     }
 
     updateInstructionText(num) {
@@ -139,6 +141,29 @@ class App extends React.Component {
     clearProfileCache = (event) => {
         localStorage.clear('smart-cookbook-profile');
         window.location.reload();
+    }
+
+    scaleRecipeMeasurements = (event) => {
+        let max_measurement = 1;
+        this.state.selectedRecipe.steps.forEach((step) => {
+            if (step.measurements) {
+                if (step.measurements >= max_measurement) {
+                    max_measurement = step.measurements;
+                }
+            }
+        })
+
+        // Get scale factor 
+        let scale_factor = this.state.scaleTrueValue / max_measurement;
+
+        this.state.selectedRecipe.steps.forEach((step)=> {
+            if (step.measurements) {
+                step.measurements = Math.round( step.measurements * scale_factor);
+            }
+        })
+
+
+        this.forceUpdate();
     }
 
     render() {
@@ -201,6 +226,46 @@ class App extends React.Component {
             </Tooltip>
         ) : ""
 
+
+        let instructionsScale = (
+            <div className="mock-ui-instructions-scale">
+                <ScaleIcon size="large"></ScaleIcon>
+                {this.state.currentInstructionScale ? 
+                <span style={{paddingLeft: '10px'}}>{this.state.currentInstructionScale}g</span> 
+                : <span style={{paddingLeft: '10px'}}>{this.state.scaleTrueValue}g</span> }
+                <input
+                    className={this.state.currentInstructionScale ? "weight-display" : "weight-display-alt"}
+                    type="range"
+                    min="0"
+                    max={this.state.currentInstructionScale}
+                    defaultValue="0"
+                    id="weightDisplay"
+                    value={this.state.scaleTrueValue}
+                ></input>
+            </div>)
+
+        let ingredientsList = []
+
+        
+        this.state.selectedRecipe.steps.forEach((step, index) => {
+            if (step.measurements) {
+                ingredientsList.push(<li>Ingredient #{index}: {step.measurements}g</li>)
+            }
+        });
+
+        let currentInstructionComponent = this.state.currentInstructionPos > 0 ? 
+        (<p>{this.state.currentInstruction}</p>) : (
+            <div>
+                <p>{this.state.currentInstruction}</p><br></br>
+                <div>
+                    <ul>
+                        {ingredientsList}
+                    </ul>
+                </div>
+            </div>
+        )
+
+
         return (
             <div className="container">
                 <div className="scale-container">
@@ -237,9 +302,14 @@ class App extends React.Component {
                             min="0"
                             max="100"
                             defaultValue="0"
+                            value={this.scaleTrueValue}
                             id="weightRange"
                             onChange={this.handleScaleChange}
                         ></input>
+                        <p>Scale recipe measurements:</p>
+                        <div style={{ paddingBottom: "10px" }}>
+                            <Button sx={{ minWidth: '100%' }} variant="contained" onClick={this.scaleRecipeMeasurements}>ADJUST</Button>
+                        </div>
                     </div>
                     <div className="mock-ui-screen">
                         <div className="mock-ui-video">
@@ -259,23 +329,11 @@ class App extends React.Component {
                                     <p className="title">
                                         {this.state.selectedRecipe.display_name}
                                     </p>
-                                    <p>Instruction #{this.state.currentInstructionPos + 1}</p>
+                                    <p>Instruction #{this.state.currentInstructionPos}</p>
                                 </div>
                                 <div className="mock-ui-instructions-body">
-                                    <p>{this.state.currentInstruction}</p>
-                                    <div className="mock-ui-instructions-scale">
-                                        <ScaleIcon size="large"></ScaleIcon>
-                                        <span style={{paddingLeft: '10px'}}>{this.state.currentInstructionScale}g</span>
-                                        <input
-                                            className="weight-display"
-                                            type="range"
-                                            min="0"
-                                            max={this.state.currentInstructionScale}
-                                            defaultValue="0"
-                                            id="weightDisplay"
-                                            value={this.state.scaleTrueValue}
-                                        ></input>
-                                    </div>
+                                    {currentInstructionComponent}
+                                    {instructionsScale}
                                 </div>
                                 <div className="mock-ui-instructions-nav">
                                     <Tooltip title="Close recipe">
