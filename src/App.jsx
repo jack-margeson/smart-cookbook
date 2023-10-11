@@ -382,8 +382,7 @@ class App extends React.Component {
                 <div className="project-information">
                     <p>Smart Cookbook by Jack Margeson</p>
                     <p>
-                        Project description and interactive UI instuctions coming
-                        soon.
+                        Please visit this project's <a href="https://github.com/jack-margeson/smart-cookbook">GitHub repository</a> for more information and usage instructions.
                     </p>
                     <p>CS5167 USER INTERFACE I, Dr. Jillian Aurisano</p>
                 </div>
