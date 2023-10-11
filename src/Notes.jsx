@@ -2,20 +2,7 @@ import "./Notes.scss"
 import React from "react";
 
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, IconButton } from "@mui/material";
-
-const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '50%',
-    height: '60%',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
+import { IconButton } from "@mui/material";
 
 class Notes extends React.Component {
     constructor(props) {
@@ -56,13 +43,13 @@ class Notes extends React.Component {
                 localStorage.setItem('smart-cookbook-notes', JSON.stringify(this.state.notes))
             }
         }
-    
+
         this.props.closeNotesModal();
     }
 
     render() {
         return (
-            <Box sx={modalStyle}>
+            <div class="main">
                 <div className="notes-container">
                     <div className="notes-header">
                         <div className="notes-header-icon">
@@ -83,7 +70,7 @@ class Notes extends React.Component {
                         </div>
                     </div>
                 </div>
-            </Box>
+            </div>
         );
     }
 }

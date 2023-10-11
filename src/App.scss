@@ -55,6 +55,9 @@
     margin: 20px;
     background-color: #363636;
     max-width: 75%;
+    min-width: 75%;
+    max-height: 95%;
+    min-height: 95%;
     // Flexbox information
     display: flex;
     flex-grow: 4;
@@ -157,6 +160,8 @@
     word-break: break-word;
     // Flexbox information
     flex-grow: 7;
+    display: flex;
+
 }
 
 .mock-ui-instructions-scale {
@@ -215,6 +220,23 @@
     overflow: hidden;
 }
 
+
 .scale-container > img {
     margin-top: calc(100vh - 300px);
+}
+
+
+.mock-ui-instructions-scale-container {
+    display: flex;
+    max-height: 20%;
+    min-height: 20%;
+    min-width: 6%;
+    flex-direction: column;
+
+    align-self: flex-end;
+}
+
+.mock-ui-instructions-body-text {
+    min-height: 80%;
+    max-height: 80%;
 }

@@ -12,7 +12,8 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import CloseIcon from '@mui/icons-material/Close';
 import WarningIcon from '@mui/icons-material/Warning';
 import ScaleIcon from '@mui/icons-material/Scale';
-import { Button, IconButton, Modal, Tooltip } from "@mui/material";
+import WifiIcon from '@mui/icons-material/Wifi';
+import { Button, IconButton, Tooltip } from "@mui/material";
 
 
 // Import recipes.json
@@ -35,7 +36,8 @@ class App extends React.Component {
             notesModalOpen: false,
             currentInstructionPos: 0,
             currentInstruction: "",
-            currentInstructionScale: 0
+            currentInstructionScale: 0,
+            scaleState: 1
         }
     }
 
@@ -46,8 +48,8 @@ class App extends React.Component {
                 this.setState({ [key]: value });
             }
         }
-        this.setState({currentInstruction: this.state.selectedRecipe.steps[0].body_text});
-        this.setState({currentInstructionScale: this.state.selectedRecipe.steps[0].measurements}); 
+        this.setState({ currentInstruction: this.state.selectedRecipe.steps[0].body_text });
+        this.setState({ currentInstructionScale: this.state.selectedRecipe.steps[0].measurements });
     }
 
     handleChange = (selectedOption) => {
@@ -56,9 +58,9 @@ class App extends React.Component {
             console.log(recipe);
             this.setState({ selectedRecipe: recipe });
         }
-        this.setState({currentInstructionPos: 0});
-        this.setState({currentInstruction: this.state.selectedRecipe.steps[0].body_text});
-        this.setState({currentInstructionScale: this.state.selectedRecipe.steps[0].measurements}); 
+        this.setState({ currentInstructionPos: 0 });
+        this.setState({ currentInstruction: this.state.selectedRecipe.steps[0].body_text });
+        this.setState({ currentInstructionScale: this.state.selectedRecipe.steps[0].measurements });
     }
 
     handleScaleChange = (event) => {
@@ -76,7 +78,13 @@ class App extends React.Component {
             this.setState({ scaleValue: 4 });
         }
 
-        this.setState({scaleTrueValue: value});
+        if (this.state.currentInstructionPos !== 0) {
+            if (value === this.state.currentInstructionScale) {
+                this.play();
+            }
+        }
+
+        this.setState({ scaleTrueValue: value });
     }
 
     closeRecipe = (event) => {
@@ -108,33 +116,33 @@ class App extends React.Component {
     instructionNext = (event) => {
         let tmp = this.state.currentInstructionPos;
         tmp += 1;
-        if (tmp > this.state.selectedRecipe.steps.length-1) {
-            this.setState({currentInstructionPos: 0});
+        if (tmp > this.state.selectedRecipe.steps.length - 1) {
+            this.setState({ currentInstructionPos: 0 });
             tmp = 0;
         } else {
-            this.setState({currentInstructionPos: tmp});
+            this.setState({ currentInstructionPos: tmp });
         }
         this.updateInstructionText(tmp);
-        this.setState({scaleValue: 0, scaleTrueValue: 0});
+        this.setState({ scaleValue: 0, scaleTrueValue: 0 });
     }
 
     instructionPrev = (event) => {
         let tmp = this.state.currentInstructionPos;
         tmp -= 1;
         if (tmp < 0) {
-            this.setState({currentInstructionPos: this.state.selectedRecipe.steps.length-1});
-            tmp = this.state.selectedRecipe.steps.length-1;
+            this.setState({ currentInstructionPos: this.state.selectedRecipe.steps.length - 1 });
+            tmp = this.state.selectedRecipe.steps.length - 1;
         } else {
-            this.setState({currentInstructionPos: tmp});
+            this.setState({ currentInstructionPos: tmp });
         }
         this.updateInstructionText(tmp);
-        this.setState({scaleValue: 0, scaleTrueValue: 0});
+        this.setState({ scaleValue: 0, scaleTrueValue: 0 });
     }
 
     updateInstructionText(num) {
         console.log(this.state.currentInstructionPos);
-        this.setState({currentInstruction: this.state.selectedRecipe.steps[num].body_text}); 
-        this.setState({currentInstructionScale: this.state.selectedRecipe.steps[num].measurements}); 
+        this.setState({ currentInstruction: this.state.selectedRecipe.steps[num].body_text });
+        this.setState({ currentInstructionScale: this.state.selectedRecipe.steps[num].measurements });
     }
 
 
@@ -155,15 +163,21 @@ class App extends React.Component {
 
         // Get scale factor 
         let scale_factor = this.state.scaleTrueValue / max_measurement;
+        this.setState({ scaleState: scale_factor });
 
-        this.state.selectedRecipe.steps.forEach((step)=> {
+        this.state.selectedRecipe.steps.forEach((step) => {
             if (step.measurements) {
-                step.measurements = Math.round( step.measurements * scale_factor);
+                step.measurements = Math.round(step.measurements * scale_factor);
             }
         })
 
 
         this.forceUpdate();
+    }
+
+    play() {
+        var audio = new Audio(window.location.origin + '/assets/target_weight.mp3');
+        audio.play();
     }
 
     render() {
@@ -226,45 +240,123 @@ class App extends React.Component {
             </Tooltip>
         ) : ""
 
+        let warningColor = this.state.scaleTrueValue > this.state.currentInstructionScale ? { color: 'red' } : {}
 
         let instructionsScale = (
-            <div className="mock-ui-instructions-scale">
-                <ScaleIcon size="large"></ScaleIcon>
-                {this.state.currentInstructionScale ? 
-                <span style={{paddingLeft: '10px'}}>{this.state.currentInstructionScale}g</span> 
-                : <span style={{paddingLeft: '10px'}}>{this.state.scaleTrueValue}g</span> }
-                <input
-                    className={this.state.currentInstructionScale ? "weight-display" : "weight-display-alt"}
-                    type="range"
-                    min="0"
-                    max={this.state.currentInstructionScale}
-                    defaultValue="0"
-                    id="weightDisplay"
-                    value={this.state.scaleTrueValue}
-                ></input>
+            <div className=".mock-ui-instructions-scale-container">
+                <div style={{ display: 'flex', alignItems: 'center', justifyItems: 'center', paddingBottom: '10px' }}>
+                    <WifiIcon fontSize="large" sx={{ color: '#000' }}></WifiIcon>
+                    <p style={{ paddingLeft: '10px' }}>Connected to wireless scale...</p>
+                </div>
+                <div className="mock-ui-instructions-scale">
+                    <ScaleIcon size="large"></ScaleIcon>
+                    {this.state.currentInstructionScale ?
+                        <span style={{ paddingLeft: '10px' }}><span
+                            style={warningColor}>{this.state.scaleTrueValue}g</span>/{this.state.currentInstructionScale}g</span>
+                        : <span style={{ paddingLeft: '10px' }}>{this.state.scaleTrueValue}g</span>}
+                    <input
+                        className={this.state.currentInstructionScale ? "weight-display" : "weight-display-alt"}
+                        type="range"
+                        min="0"
+                        max={this.state.currentInstructionScale}
+                        defaultValue="0"
+                        id="weightDisplay"
+                        value={this.state.scaleTrueValue}
+                    ></input>
+                </div>
+
             </div>)
 
         let ingredientsList = []
 
-        
+
         this.state.selectedRecipe.steps.forEach((step, index) => {
             if (step.measurements) {
                 ingredientsList.push(<li>Ingredient #{index}: {step.measurements}g</li>)
             }
         });
 
-        let currentInstructionComponent = this.state.currentInstructionPos > 0 ? 
-        (<p>{this.state.currentInstruction}</p>) : (
-            <div>
-                <p>{this.state.currentInstruction}</p><br></br>
+        let currentInstructionComponent = this.state.currentInstructionPos > 0 ?
+            (<p>{this.state.currentInstruction}</p>) : (
                 <div>
-                    <ul>
-                        {ingredientsList}
-                    </ul>
+                    <p>{this.state.currentInstruction}</p><br></br>
+                    <div>
+                        <ul>
+                            {ingredientsList}
+                        </ul>
+                    </div>
+                    {this.state.scaleState !== 1 ? <p style={{ color: '#023020', paddingTop: '10px' }}>The ingredient weights have been adjusted!</p> : ""}
                 </div>
-            </div>
-        )
+            )
 
+        let screenContent = ""
+        if (this.state.profileModalOpen) {
+            screenContent = (<div className="mock-ui-screen"><Profile closeProfileModal={this.closeProfileModal}>
+            </Profile></div>);
+        } else if (this.state.notesModalOpen) {
+            screenContent = (<div className="mock-ui-screen"><Notes
+                currentRecipe={this.state.selectedRecipe}
+                closeNotesModal={this.closeNotesModal}>
+            </Notes></div>);
+        } else {
+            screenContent = (<div className="mock-ui-screen">
+                <div className="mock-ui-video">
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        src={this.state.selectedRecipe.video.src}
+                        title={this.state.selectedRecipe.video.title}
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                    ></iframe>
+                </div>
+                <div className="mock-ui-instructions">
+                    <div className="mock-ui-text">
+                        <div className="mock-ui-instructions-header">
+                            <p className="title">
+                                {this.state.selectedRecipe.display_name}
+                            </p>
+                            <p>Instruction #{this.state.currentInstructionPos}</p>
+                        </div>
+                        <div className="mock-ui-instructions-body">
+                            <div className="mock-ui-instructions-body-text">
+                                {currentInstructionComponent}
+
+                            </div>
+                            {instructionsScale}
+                        </div>
+                        <div className="mock-ui-instructions-nav">
+                            <Tooltip title="Close recipe">
+                                <IconButton size="large" onClick={this.closeRecipe}>
+                                    <CloseIcon fontSize="large" sx={{ color: "#000" }}></CloseIcon>
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Chef profile">
+                                <IconButton size="large" onClick={this.openProfileModal}>
+                                    <PersonIcon fontSize="large" sx={{ color: "#EB7256" }}></PersonIcon>
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Edit recipe notes">
+                                <IconButton size="large" onClick={this.openNotesModal}>
+                                    <EditNoteIcon fontSize="large" sx={{ color: "#EB7256" }}></EditNoteIcon>
+                                </IconButton>
+                            </Tooltip>
+                            {warning}
+                        </div>
+                    </div>
+                    <div className="mock-ui-control-container">
+                        <div className="mock-ui-control" style={{ borderBottom: "2px solid #363636" }} onClick={this.instructionNext}>
+                            <NavigateNextIcon fontSize="large"></NavigateNextIcon>
+                        </div>
+                        <div className="mock-ui-control" style={{ borderTop: "2px solid #363636" }} onClick={this.instructionPrev}>
+                            <NavigateBeforeIcon fontSize="large"></NavigateBeforeIcon>
+                        </div>
+
+                    </div>
+                </div>
+            </div>);
+        }
 
         return (
             <div className="container">
@@ -311,84 +403,8 @@ class App extends React.Component {
                             <Button sx={{ minWidth: '100%' }} variant="contained" onClick={this.scaleRecipeMeasurements}>ADJUST</Button>
                         </div>
                     </div>
-                    <div className="mock-ui-screen">
-                        <div className="mock-ui-video">
-                            <iframe
-                                width="100%"
-                                height="100%"
-                                src={this.state.selectedRecipe.video.src}
-                                title={this.state.selectedRecipe.video.title}
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen
-                            ></iframe>
-                        </div>
-                        <div className="mock-ui-instructions">
-                            <div className="mock-ui-text">
-                                <div className="mock-ui-instructions-header">
-                                    <p className="title">
-                                        {this.state.selectedRecipe.display_name}
-                                    </p>
-                                    <p>Instruction #{this.state.currentInstructionPos}</p>
-                                </div>
-                                <div className="mock-ui-instructions-body">
-                                    {currentInstructionComponent}
-                                    {instructionsScale}
-                                </div>
-                                <div className="mock-ui-instructions-nav">
-                                    <Tooltip title="Close recipe">
-                                        <IconButton size="large" onClick={this.closeRecipe}>
-                                            <CloseIcon fontSize="large" sx={{ color: "#000" }}></CloseIcon>
-                                        </IconButton>
-                                    </Tooltip>
-                                    <Tooltip title="Chef profile">
-                                        <IconButton size="large" onClick={this.openProfileModal}>
-                                            <PersonIcon fontSize="large" sx={{ color: "#EB7256" }}></PersonIcon>
-                                        </IconButton>
-                                    </Tooltip>
-                                    <Tooltip title="Edit recipe notes">
-                                        <IconButton size="large" onClick={this.openNotesModal}>
-                                            <EditNoteIcon fontSize="large" sx={{ color: "#EB7256" }}></EditNoteIcon>
-                                        </IconButton>
-                                    </Tooltip>
-                                    {warning}
-                                </div>
-                            </div>
-                            <div className="mock-ui-control-container">
-                                <div className="mock-ui-control" style={{ borderBottom: "2px solid #363636" }} onClick={this.instructionNext}>
-                                    <NavigateNextIcon fontSize="large"></NavigateNextIcon>
-                                </div>
-                                <div className="mock-ui-control" style={{ borderTop: "2px solid #363636"}} onClick={this.instructionPrev}>
-                                    <NavigateBeforeIcon fontSize="large"></NavigateBeforeIcon>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    {screenContent}
                 </div>
-
-                <Modal
-                    open={this.state.profileModalOpen}
-                >
-                    <div>
-                        <Profile closeProfileModal={this.closeProfileModal}>
-                        </Profile>
-                    </div>
-
-                </Modal>
-
-                <Modal
-                    open={this.state.notesModalOpen}
-                >
-                    <div>
-                        <Notes
-                            currentRecipe={this.state.selectedRecipe}
-                            closeNotesModal={this.closeNotesModal}>
-                        </Notes>
-                    </div>
-
-                </Modal>
-
             </div >
         );
     }

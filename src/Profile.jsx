@@ -2,21 +2,7 @@ import "./Profile.scss"
 import React from "react";
 
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, IconButton, Button } from "@mui/material";
-
-const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '50%',
-    height: 'auto',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
-
+import { IconButton, Button } from "@mui/material";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -54,7 +40,7 @@ class Profile extends React.Component {
 
     render() {
         return (
-            <Box sx={modalStyle}>
+            <div className="main">
                 <div className="profile-container">
                     <div className="profile-header">
                         <div className="profile-header-icon">
@@ -74,7 +60,7 @@ class Profile extends React.Component {
                             </div>
                             <fieldset>
                                 <legend>Choose your skill level:</legend>
-                                <div onChange={this.handleChange}>
+                                <div onChange={this.handleChange} class="input-padding">
                                     <input type="radio" name="skill" defaultChecked={this.state.skill === "novice" ? true : false} value="novice" />
                                     <label>Novice</label><br></br>
                                     <input type="radio" name="skill" defaultChecked={this.state.skill === "intermediate" ? true : false} value="intermediate" />
@@ -85,7 +71,7 @@ class Profile extends React.Component {
                             </fieldset>
                             <fieldset>
                                 <legend>Choose your dietary restrictions:</legend>
-                                <div>
+                                <div class="input-padding">
                                     <input type="checkbox" name="diet-lactose" value="diet-lactose" defaultChecked={this.state['diet-lactose']} onClick={this.handleCheckbox} />
                                     <label>Lactose intolerant</label><br></br>
                                     <input type="checkbox" name="diet-gluten" value="diet-gluten" defaultChecked={this.state['diet-gluten']} onClick={this.handleCheckbox} />
@@ -96,7 +82,7 @@ class Profile extends React.Component {
                             </fieldset>
                             <fieldset>
                                 <legend>Choose your cooking equipment:</legend>
-                                <div>
+                                <div class="input-padding">
                                     <input type="checkbox" name="equipment-stovetop" value="equipment-stovetop" defaultChecked={this.state['equipment-stovetop']} onClick={this.handleCheckbox} />
                                     <label>Stovetop</label><br></br>
                                     <input type="checkbox" name="equipment-oven" value="equipment-oven" defaultChecked={this.state['equipment-oven']} onClick={this.handleCheckbox} />
@@ -117,7 +103,7 @@ class Profile extends React.Component {
                         </form>
                     </div>
                 </div>
-            </Box>
+            </div>
         );
     }
 }
