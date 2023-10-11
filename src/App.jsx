@@ -13,8 +13,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import WarningIcon from '@mui/icons-material/Warning';
 import ScaleIcon from '@mui/icons-material/Scale';
 import WifiIcon from '@mui/icons-material/Wifi';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Button, IconButton, Tooltip } from "@mui/material";
-
 
 // Import recipes.json
 const recipes = require("./recipes.json");
@@ -327,22 +327,34 @@ class App extends React.Component {
                             {instructionsScale}
                         </div>
                         <div className="mock-ui-instructions-nav">
-                            <Tooltip title="Close recipe">
-                                <IconButton size="large" onClick={this.closeRecipe}>
-                                    <CloseIcon fontSize="large" sx={{ color: "#000" }}></CloseIcon>
-                                </IconButton>
-                            </Tooltip>
-                            <Tooltip title="Chef profile">
-                                <IconButton size="large" onClick={this.openProfileModal}>
-                                    <PersonIcon fontSize="large" sx={{ color: "#EB7256" }}></PersonIcon>
-                                </IconButton>
-                            </Tooltip>
-                            <Tooltip title="Edit recipe notes">
-                                <IconButton size="large" onClick={this.openNotesModal}>
-                                    <EditNoteIcon fontSize="large" sx={{ color: "#EB7256" }}></EditNoteIcon>
-                                </IconButton>
-                            </Tooltip>
-                            {warning}
+                            <div className="mock-ui-buttons">
+                                <Tooltip title="Close recipe">
+                                    <IconButton size="large" onClick={this.closeRecipe}>
+                                        <CloseIcon fontSize="large" sx={{ color: "#000" }}></CloseIcon>
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title="Chef profile">
+                                    <IconButton size="large" onClick={this.openProfileModal}>
+                                        <PersonIcon fontSize="large" sx={{ color: "#EB7256" }}></PersonIcon>
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title="Edit recipe notes">
+                                    <IconButton size="large" onClick={this.openNotesModal}>
+                                        <EditNoteIcon fontSize="large" sx={{ color: "#EB7256" }}></EditNoteIcon>
+                                    </IconButton>
+                                </Tooltip>
+                                {warning}
+                            </div>
+                            <div className="mock-ui-select-recipe">
+                                <span><MenuBookIcon fontSize="large" sx={{ color: "#000", paddingRight: "20px" }}></MenuBookIcon></span>
+                                <Select
+                                    options={options}
+                                    defaultValue={options[0]}
+                                    onChange={this.handleChange}
+                                    menuPlacement="top"
+                                />
+                            </div>
+
                         </div>
                     </div>
                     <div className="mock-ui-control-container">
@@ -355,7 +367,7 @@ class App extends React.Component {
 
                     </div>
                 </div>
-            </div>);
+            </div >);
         }
 
         return (
@@ -378,12 +390,7 @@ class App extends React.Component {
                 <div className="mock-ui-container">
                     <div className="mock-ui-controls">
                         <p className="mock-control-text">Mock control panel</p>
-                        <p>Select recipe:</p>
-                        <Select
-                            options={options}
-                            defaultValue={options[0]}
-                            onChange={this.handleChange}
-                        />
+
                         <p>Clear user profile/notes:</p>
                         <div style={{ paddingBottom: "10px" }}>
                             <Button sx={{ minWidth: '100%' }} variant="contained" onClick={this.clearProfileCache}>Reset</Button>
