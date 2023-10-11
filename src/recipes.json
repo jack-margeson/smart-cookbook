@@ -34,6 +34,9 @@
         },
         "steps": [
             {
+                "body_text": "To begin, please review the ingredients required for this recipe. If you'd like to adjust the recipe, please weigh the highest weight item on the ingredients list on the scale. When the scale settles, hit the 'ADJUST' button to change the measurements for the rest of the recipe."
+            },
+            {
                 "body_text": "This is step one of the recipe. The following is placeholder text. Bacon ipsum dolor amet cupim burgdoggen strip steak turkey cow ham bacon pastrami meatball tail shank capicola sirloin pig pork belly. Capicola shankle chislic short ribs, drumstick leberkas brisket beef ribs shoulder turkey pig t-bone meatball. Pancetta ground round drumstick, biltong salami frankfurter turkey bresaola filet mignon tail pork loin jerky bacon. Leberkas pancetta venison spare ribs jowl shank landjaeger pastrami filet mignon drumstick short loin alcatra kielbasa kevin tenderloin. Chuck burgdoggen pastrami, shank biltong shankle boudin leberkas hamburger drumstick tri-tip ham hock capicola spare ribs kevin.",
                 "measurements": "12"
             },
