@@ -4,6 +4,7 @@ import Select from "react-select";
 
 import Profile from "./Profile";
 import Notes from "./Notes"
+import targetWeightAudio from "./target_weight.mp3"
 
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -176,7 +177,7 @@ class App extends React.Component {
     }
 
     play() {
-        var audio = new Audio(window.location.origin + '/assets/target_weight.mp3');
+        var audio = new Audio(targetWeightAudio);
         audio.play();
     }
 
