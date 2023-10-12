@@ -60,7 +60,7 @@ When presented to peers, the following feedback was recieved:
 - Voice control seems gimmicky--focus importance on usability and profile features
 
 ## Showcase
--- link to video showcase --
+[-- link to video showcase --](https://www.youtube.com/watch?v=spowmQYG1oY)
 
 ### The control panel 
 The control panel on the righthand side of the site allows users to change external things that would not be a part of the main Smart Cookbook UI, including some reset features that would be implemented in a main-menu in a full fledged product.
