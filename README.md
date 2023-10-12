@@ -59,6 +59,20 @@ When presented to peers, the following feedback was recieved:
 - Add controls for built-in scale (zeroing, unit changing)
 - Voice control seems gimmicky--focus importance on usability and profile features
 
+### Additional features sketches 
+
+A set of final draft sketches were drawn for the two additional B and A level features, being the mock secondary device scale and profile system for displaying information for mock users.
+
+![image](https://github.com/jack-margeson/smart-cookbook/assets/31900546/2bbf4c66-eaf0-4b2e-99f5-f1de033a9093)
+
+When presented to peers, the following feedback was recieved:
+- Better placement of the icons on the recipe view needed, might be good to group them all together
+- Scale should include exact target weight for each step near the scale icon
+- Make sure the icons have hoverable alt-text for accessibility
+- Group selection buttons on the profile page for quick input (use HTML field controls?)
+- Note: make important icons a different color
+
+
 ## Showcase
 
 ### Watch the guided walkthrough of the UI on YouTube by clicking the image below:
