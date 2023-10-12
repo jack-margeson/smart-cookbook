@@ -1,12 +1,12 @@
 # smart-cookbook 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/d1f124d5-80be-4ce3-ae7c-a8dfe44024bc/deploy-status)](https://app.netlify.com/sites/smart-cookbook/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/db5067b4-1049-42da-bb9c-b84f0d000c49/deploy-status)](https://app.netlify.com/sites/smart-cookbook/deploys)
 
 Project repository for Jack Margeson's smart cookbook. This repo contains the files for the public smart cookbook UI mockup website, as well as files pertaining to other project deliverables. 
 
 CS5167 USER INTERFACE I, Dr. Jillian Aurisano
 
 ## Overview 
-The Smart Cookbook project aims to create an interactive user experience that emulates the usage of a tablet-like device that helps its users in the kitchen. The device is capable of displaying short form cooking video demonstrations alongside detailed instructions including measurements of required ingredients. A user is able to register their name, cooking level, dietary restrictions, and kitchen appliances through the profile feature. Users who create a profile will then be served warnings when a recipe conflicts with something stated on their profile. They are also enabled to write notes in a specialized, per-recipe note box that allows them to tweak recipes or set reminders as desired. In addition, the Smart Cookbook is able to connect to a wireless scale, which gives visual and auditory feedback when a user weighs the correct amount of an ingredient for an instructional step. A usable demo of the project can be found hosted [here](smart-cookbook.netlify.app/). 
+The Smart Cookbook project aims to create an interactive user experience that emulates the usage of a tablet-like device that helps its users in the kitchen. The device is capable of displaying short form cooking video demonstrations alongside detailed instructions including measurements of required ingredients. A user is able to register their name, cooking level, dietary restrictions, and kitchen appliances through the profile feature. Users who create a profile will then be served warnings when a recipe conflicts with something stated on their profile. They are also enabled to write notes in a specialized, per-recipe note box that allows them to tweak recipes or set reminders as desired. In addition, the Smart Cookbook is able to connect to a wireless scale, which gives visual and auditory feedback when a user weighs the correct amount of an ingredient for an instructional step. A usable demo of the project can be found hosted [here](https://smart-cookbook.netlify.app/). 
 
 ### Interviews
 The design of the smart cookbook with begin with a round of interviews. I have created 7 questions in preperation for requirements gathering. The questions are as follows:
