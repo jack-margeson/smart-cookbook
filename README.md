@@ -60,7 +60,11 @@ When presented to peers, the following feedback was recieved:
 - Voice control seems gimmicky--focus importance on usability and profile features
 
 ## Showcase
-[-- link to video showcase --](https://www.youtube.com/watch?v=spowmQYG1oY)
+
+### Watch the guided walkthrough of the UI on YouTube by clicking the image below:
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=spowmQYG1oY" target="_blank">
+ <img src="http://img.youtube.com/vi/spowmQYG1oY/mqdefault.jpg" alt="Watch the video" width="240" height="180" border="10" />
+</a>
 
 ### The control panel 
 The control panel on the righthand side of the site allows users to change external things that would not be a part of the main Smart Cookbook UI, including some reset features that would be implemented in a main-menu in a full fledged product.
